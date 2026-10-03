@@ -1,5 +1,7 @@
 # Case UFMG 2026/2 - Teoria da Decisão
-## Otimização do custo e qualidade de pilhas de minério - Entrega #1 (Mono-objetivo)
+## Otimização do custo e qualidade de pilhas de minério 
+
+### Entrega 1 (Mono-objetivo)
 
 ### Estrutura dos arquivos
 - `data.py` — parâmetros do problema (minérios, pilhas, limites de qualidade).
@@ -18,7 +20,7 @@ pip install numpy matplotlib
 
 ### Como executar
 
-Reproduzir todos os resultados da Entrega #1 (tabelas, curvas de convergência e figuras):
+Reproduzir todos os resultados da Entrega 1 (tabelas, curvas de convergência e figuras):
 
 ```
 python3 experiments.py
