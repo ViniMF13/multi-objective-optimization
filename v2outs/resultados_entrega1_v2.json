@@ -1,0 +1,1547 @@
+{
+  "versao": "v2_canonico_deb_n3",
+  "estatisticas": {
+    "f1": {
+      "n_total": 5,
+      "n_viaveis": 5,
+      "n_inviaveis": 0,
+      "taxa_viabilidade_pct": 100.0,
+      "estatisticas_geral_puro": {
+        "min": 61140000.0,
+        "media": 61384000.0,
+        "std": 174539.39383417144,
+        "max": 61660000.0
+      },
+      "estatisticas_apenas_viaveis": {
+        "min": 61140000.0,
+        "media": 61384000.0,
+        "std": 174539.39383417144,
+        "max": 61660000.0
+      },
+      "detalhes_inviaveis": []
+    },
+    "f2": {
+      "n_total": 5,
+      "n_viaveis": 5,
+      "n_inviaveis": 0,
+      "taxa_viabilidade_pct": 100.0,
+      "estatisticas_geral_puro": {
+        "min": 2.507483686952995,
+        "media": 2.5536753963668,
+        "std": 0.0653276808756845,
+        "max": 2.680093783664489
+      },
+      "estatisticas_apenas_viaveis": {
+        "min": 2.507483686952995,
+        "media": 2.5536753963668,
+        "std": 0.0653276808756845,
+        "max": 2.680093783664489
+      },
+      "detalhes_inviaveis": []
+    },
+    "f3": {
+      "n_total": 5,
+      "n_viaveis": 5,
+      "n_inviaveis": 0,
+      "taxa_viabilidade_pct": 100.0,
+      "estatisticas_geral_puro": {
+        "min": 1.509071953424987,
+        "media": 1.5394142768661996,
+        "std": 0.031001724813637773,
+        "max": 1.58784359257421
+      },
+      "estatisticas_apenas_viaveis": {
+        "min": 1.509071953424987,
+        "media": 1.5394142768661996,
+        "std": 0.031001724813637773,
+        "max": 1.58784359257421
+      },
+      "detalhes_inviaveis": []
+    }
+  },
+  "payoff_e_pontos_referencia": {
+    "payoff_matrix": {
+      "f1": {
+        "f1": 61140000.0,
+        "f2": 6.063233163110307,
+        "f3": 5.079933984920196
+      },
+      "f2": {
+        "f1": 64040000.0,
+        "f2": 2.507483686952995,
+        "f3": 3.242396023285572
+      },
+      "f3": {
+        "f1": 65600000.0,
+        "f2": 4.851184700189098,
+        "f3": 1.509071953424987
+      }
+    },
+    "ponto_ideal": {
+      "f1": 61140000.0,
+      "f2": 2.507483686952995,
+      "f3": 1.509071953424987
+    },
+    "ponto_nadir": {
+      "f1": 65600000.0,
+      "f2": 6.063233163110307,
+      "f3": 5.079933984920196
+    },
+    "ponto_utopico": {
+      "f1": 61095400.0,
+      "f2": 2.4719261921914217,
+      "f3": 1.4733633331100349
+    },
+    "matriz_conflito_pct": {
+      "f1": {
+        "f1": 0.0,
+        "f2": 100.0,
+        "f3": 100.0
+      },
+      "f2": {
+        "f1": 65.02242152466367,
+        "f2": 0.0,
+        "f3": 48.54077403642501
+      },
+      "f3": {
+        "f1": 100.0,
+        "f2": 65.91299609130319,
+        "f3": 0.0
+      }
+    },
+    "preparacao_entrega2": {
+      "normalizacao": {
+        "f1": {
+          "min_ideal_z_star": 61140000.0,
+          "max_nadir_z_nad": 65600000.0,
+          "intervalo_delta": 4460000.0,
+          "fator_escala": 2.242152466367713e-07,
+          "unidade": "R$"
+        },
+        "f2": {
+          "min_ideal_z_star": 2.507483686952995,
+          "max_nadir_z_nad": 6.063233163110307,
+          "intervalo_delta": 3.555749476157312,
+          "fator_escala": 0.2812346614139692,
+          "unidade": "(% SiO2)²"
+        },
+        "f3": {
+          "min_ideal_z_star": 1.509071953424987,
+          "max_nadir_z_nad": 5.079933984920196,
+          "intervalo_delta": 3.5708620314952086,
+          "fator_escala": 0.280044423777772,
+          "unidade": "(% Al2O3)²"
+        }
+      },
+      "metodo_epsilon_restrito": {
+        "objetivo_primario": "f1 (Custo R$)",
+        "restricoes": [
+          "f2 (SiO2) <= eps2",
+          "f3 (Al2O3) <= eps3"
+        ],
+        "intervalo_eps2": [
+          2.507483686952995,
+          6.063233163110307
+        ],
+        "intervalo_eps3": [
+          1.509071953424987,
+          5.079933984920196
+        ],
+        "grid_sugerido_eps2": [
+          2.507483686952995,
+          2.9025669620815853,
+          3.2976502372101755,
+          3.6927335123387657,
+          4.087816787467355,
+          4.482900062595946,
+          4.877983337724537,
+          5.2730666128531265,
+          5.668149887981716,
+          6.063233163110307
+        ],
+        "grid_sugerido_eps3": [
+          1.509071953424987,
+          1.905834401368899,
+          2.302596849312811,
+          2.6993592972567235,
+          3.0961217452006355,
+          3.4928841931445476,
+          3.8896466410884596,
+          4.286409089032372,
+          4.683171536976284,
+          5.079933984920196
+        ]
+      },
+      "metodo_compromisso_tchebycheff": {
+        "ponto_referencia_z_star": {
+          "f1": 61140000.0,
+          "f2": 2.507483686952995,
+          "f3": 1.509071953424987
+        },
+        "ponto_utopico_estrito": {
+          "f1": 61095400.0,
+          "f2": 2.4719261921914217,
+          "f3": 1.4733633331100349
+        },
+        "formula": "min max_i { w_i * (f_i(s) - z_i*) / (z_i^nad - z_i*) }"
+      }
+    }
+  },
+  "melhores_solucoes": {
+    "f1": {
+      "seed": 30,
+      "valor_puro": 61140000.0,
+      "factivel": true,
+      "status_selecao": "Viável (Ótimo factível encontrado)",
+      "resumo": {
+        "f1": 61140000.0,
+        "f2": 6.063233163110307,
+        "f3": 5.079933984920196,
+        "viol_disp": 0.0,
+        "viol_qual": 0.0,
+        "penalidade": 0.0,
+        "factivel": true
+      },
+      "diagnostico": {
+        "factivel": true,
+        "total_viol_disp": 0.0,
+        "total_viol_qual": 0.0,
+        "minerios_violados": [],
+        "pilhas_violadas": []
+      },
+      "proximidade": {
+        "pilhas": {
+          "P1": {
+            "grupo": "S1",
+            "FeT": 59.4,
+            "SiO2": {
+              "teor": 6.09,
+              "alvo": 5.55,
+              "limites": [
+                5.0,
+                6.2
+              ],
+              "desvio": 0.54,
+              "abs_desvio": 0.54,
+              "desvio_quad": 0.2916,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 1.9300000000000002,
+              "alvo": 1.25,
+              "limites": [
+                1.0,
+                2.3
+              ],
+              "desvio": 0.6800000000000002,
+              "abs_desvio": 0.6800000000000002,
+              "desvio_quad": 0.4624000000000002,
+              "classificacao": "Afastado"
+            }
+          },
+          "P2": {
+            "grupo": "S1",
+            "FeT": 59.72727272727273,
+            "SiO2": {
+              "teor": 6.081818181818182,
+              "alvo": 5.55,
+              "limites": [
+                5.0,
+                6.2
+              ],
+              "desvio": 0.5318181818181822,
+              "abs_desvio": 0.5318181818181822,
+              "desvio_quad": 0.28283057851239707,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 2.2636363636363637,
+              "alvo": 1.25,
+              "limites": [
+                1.0,
+                2.3
+              ],
+              "desvio": 1.0136363636363637,
+              "abs_desvio": 1.0136363636363637,
+              "desvio_quad": 1.0274586776859504,
+              "classificacao": "Afastado"
+            }
+          },
+          "P3": {
+            "grupo": "S1",
+            "FeT": 59.916666666666664,
+            "SiO2": {
+              "teor": 6.033333333333334,
+              "alvo": 5.55,
+              "limites": [
+                5.0,
+                6.2
+              ],
+              "desvio": 0.4833333333333343,
+              "abs_desvio": 0.4833333333333343,
+              "desvio_quad": 0.23361111111111202,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 1.925,
+              "alvo": 1.25,
+              "limites": [
+                1.0,
+                2.3
+              ],
+              "desvio": 0.675,
+              "abs_desvio": 0.675,
+              "desvio_quad": 0.45562500000000006,
+              "classificacao": "Afastado"
+            }
+          },
+          "P4": {
+            "grupo": "S1",
+            "FeT": 59.84615384615385,
+            "SiO2": {
+              "teor": 6.0307692307692315,
+              "alvo": 5.55,
+              "limites": [
+                5.0,
+                6.2
+              ],
+              "desvio": 0.4807692307692317,
+              "abs_desvio": 0.4807692307692317,
+              "desvio_quad": 0.2311390532544388,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 2.1923076923076925,
+              "alvo": 1.25,
+              "limites": [
+                1.0,
+                2.3
+              ],
+              "desvio": 0.9423076923076925,
+              "abs_desvio": 0.9423076923076925,
+              "desvio_quad": 0.887943786982249,
+              "classificacao": "Afastado"
+            }
+          },
+          "P5": {
+            "grupo": "S1",
+            "FeT": 59.357142857142854,
+            "SiO2": {
+              "teor": 6.185714285714285,
+              "alvo": 5.55,
+              "limites": [
+                5.0,
+                6.2
+              ],
+              "desvio": 0.6357142857142852,
+              "abs_desvio": 0.6357142857142852,
+              "desvio_quad": 0.40413265306122387,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 1.6928571428571428,
+              "alvo": 1.25,
+              "limites": [
+                1.0,
+                2.3
+              ],
+              "desvio": 0.44285714285714284,
+              "abs_desvio": 0.44285714285714284,
+              "desvio_quad": 0.19612244897959183,
+              "classificacao": "Afastado"
+            }
+          },
+          "P6": {
+            "grupo": "S2",
+            "FeT": 60.2,
+            "SiO2": {
+              "teor": 6.406666666666666,
+              "alvo": 5.5,
+              "limites": [
+                5.0,
+                6.5
+              ],
+              "desvio": 0.9066666666666663,
+              "abs_desvio": 0.9066666666666663,
+              "desvio_quad": 0.8220444444444438,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 2.146666666666667,
+              "alvo": 1.5,
+              "limites": [
+                1.0,
+                2.2
+              ],
+              "desvio": 0.646666666666667,
+              "abs_desvio": 0.646666666666667,
+              "desvio_quad": 0.41817777777777815,
+              "classificacao": "Afastado"
+            }
+          },
+          "P7": {
+            "grupo": "S2",
+            "FeT": 58.3125,
+            "SiO2": {
+              "teor": 6.475,
+              "alvo": 5.5,
+              "limites": [
+                5.0,
+                6.5
+              ],
+              "desvio": 0.9749999999999996,
+              "abs_desvio": 0.9749999999999996,
+              "desvio_quad": 0.9506249999999993,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 2.06875,
+              "alvo": 1.5,
+              "limites": [
+                1.0,
+                2.2
+              ],
+              "desvio": 0.5687500000000001,
+              "abs_desvio": 0.5687500000000001,
+              "desvio_quad": 0.3234765625000001,
+              "classificacao": "Afastado"
+            }
+          },
+          "P8": {
+            "grupo": "S2",
+            "FeT": 58.94117647058823,
+            "SiO2": {
+              "teor": 6.464705882352941,
+              "alvo": 5.5,
+              "limites": [
+                5.0,
+                6.5
+              ],
+              "desvio": 0.9647058823529413,
+              "abs_desvio": 0.9647058823529413,
+              "desvio_quad": 0.930657439446367,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 2.1941176470588233,
+              "alvo": 1.5,
+              "limites": [
+                1.0,
+                2.2
+              ],
+              "desvio": 0.6941176470588233,
+              "abs_desvio": 0.6941176470588233,
+              "desvio_quad": 0.48179930795847714,
+              "classificacao": "Afastado"
+            }
+          },
+          "P9": {
+            "grupo": "S2",
+            "FeT": 58.888888888888886,
+            "SiO2": {
+              "teor": 6.4944444444444445,
+              "alvo": 5.5,
+              "limites": [
+                5.0,
+                6.5
+              ],
+              "desvio": 0.9944444444444445,
+              "abs_desvio": 0.9944444444444445,
+              "desvio_quad": 0.9889197530864198,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 2.1277777777777778,
+              "alvo": 1.5,
+              "limites": [
+                1.0,
+                2.2
+              ],
+              "desvio": 0.6277777777777778,
+              "abs_desvio": 0.6277777777777778,
+              "desvio_quad": 0.3941049382716049,
+              "classificacao": "Afastado"
+            }
+          },
+          "P10": {
+            "grupo": "S2",
+            "FeT": 60.473684210526315,
+            "SiO2": {
+              "teor": 6.463157894736842,
+              "alvo": 5.5,
+              "limites": [
+                5.0,
+                6.5
+              ],
+              "desvio": 0.9631578947368418,
+              "abs_desvio": 0.9631578947368418,
+              "desvio_quad": 0.9276731301939052,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 2.1578947368421053,
+              "alvo": 1.5,
+              "limites": [
+                1.0,
+                2.2
+              ],
+              "desvio": 0.6578947368421053,
+              "abs_desvio": 0.6578947368421053,
+              "desvio_quad": 0.432825484764543,
+              "classificacao": "Afastado"
+            }
+          }
+        },
+        "estatisticas": {
+          "SiO2": {
+            "soma_quadratica_f2": 6.063233163110307,
+            "desvio_abs_medio": 0.7475609919835927,
+            "desvio_abs_max": 0.9944444444444445,
+            "desvio_abs_min": 0.4807692307692317,
+            "desvio_padrao_entre_pilhas": 0.21788960410156688,
+            "contagem_classificacao": {
+              "Excelente": 0,
+              "Bom": 0,
+              "Afastado": 10,
+              "Inviável": 0
+            }
+          },
+          "Al2O3": {
+            "soma_quadratica_f3": 5.079933984920195,
+            "desvio_abs_medio": 0.6949008027146573,
+            "desvio_abs_max": 1.0136363636363637,
+            "desvio_abs_min": 0.44285714285714284,
+            "desvio_padrao_entre_pilhas": 0.15844959096995,
+            "contagem_classificacao": {
+              "Excelente": 0,
+              "Bom": 0,
+              "Afastado": 10,
+              "Inviável": 0
+            }
+          }
+        },
+        "criterio_adotado": {
+          "excelente_limite_abs": 0.1,
+          "bom_limite_abs": 0.25,
+          "descricao": "Excelente <= 0.10%, Bom <= 0.25%, Afastado > 0.25%"
+        }
+      }
+    },
+    "f2": {
+      "seed": 40,
+      "valor_puro": 2.507483686952995,
+      "factivel": true,
+      "status_selecao": "Viável (Ótimo factível encontrado)",
+      "resumo": {
+        "f1": 64040000.0,
+        "f2": 2.507483686952995,
+        "f3": 3.242396023285572,
+        "viol_disp": 0.0,
+        "viol_qual": 0.0,
+        "penalidade": 0.0,
+        "factivel": true
+      },
+      "diagnostico": {
+        "factivel": true,
+        "total_viol_disp": 0.0,
+        "total_viol_qual": 0.0,
+        "minerios_violados": [],
+        "pilhas_violadas": []
+      },
+      "proximidade": {
+        "pilhas": {
+          "P1": {
+            "grupo": "S1",
+            "FeT": 60.4,
+            "SiO2": {
+              "teor": 5.89,
+              "alvo": 5.55,
+              "limites": [
+                5.0,
+                6.2
+              ],
+              "desvio": 0.33999999999999986,
+              "abs_desvio": 0.33999999999999986,
+              "desvio_quad": 0.1155999999999999,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 1.83,
+              "alvo": 1.25,
+              "limites": [
+                1.0,
+                2.3
+              ],
+              "desvio": 0.5800000000000001,
+              "abs_desvio": 0.5800000000000001,
+              "desvio_quad": 0.3364000000000001,
+              "classificacao": "Afastado"
+            }
+          },
+          "P2": {
+            "grupo": "S1",
+            "FeT": 60.63636363636363,
+            "SiO2": {
+              "teor": 5.918181818181818,
+              "alvo": 5.55,
+              "limites": [
+                5.0,
+                6.2
+              ],
+              "desvio": 0.36818181818181817,
+              "abs_desvio": 0.36818181818181817,
+              "desvio_quad": 0.1355578512396694,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 2.1363636363636362,
+              "alvo": 1.25,
+              "limites": [
+                1.0,
+                2.3
+              ],
+              "desvio": 0.8863636363636362,
+              "abs_desvio": 0.8863636363636362,
+              "desvio_quad": 0.7856404958677684,
+              "classificacao": "Afastado"
+            }
+          },
+          "P3": {
+            "grupo": "S1",
+            "FeT": 61.166666666666664,
+            "SiO2": {
+              "teor": 5.958333333333333,
+              "alvo": 5.55,
+              "limites": [
+                5.0,
+                6.2
+              ],
+              "desvio": 0.4083333333333332,
+              "abs_desvio": 0.4083333333333332,
+              "desvio_quad": 0.166736111111111,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 1.5833333333333333,
+              "alvo": 1.25,
+              "limites": [
+                1.0,
+                2.3
+              ],
+              "desvio": 0.33333333333333326,
+              "abs_desvio": 0.33333333333333326,
+              "desvio_quad": 0.11111111111111106,
+              "classificacao": "Afastado"
+            }
+          },
+          "P4": {
+            "grupo": "S1",
+            "FeT": 60.61538461538461,
+            "SiO2": {
+              "teor": 5.9692307692307685,
+              "alvo": 5.55,
+              "limites": [
+                5.0,
+                6.2
+              ],
+              "desvio": 0.41923076923076863,
+              "abs_desvio": 0.41923076923076863,
+              "desvio_quad": 0.17575443786982198,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 1.7538461538461538,
+              "alvo": 1.25,
+              "limites": [
+                1.0,
+                2.3
+              ],
+              "desvio": 0.5038461538461538,
+              "abs_desvio": 0.5038461538461538,
+              "desvio_quad": 0.25386094674556214,
+              "classificacao": "Afastado"
+            }
+          },
+          "P5": {
+            "grupo": "S1",
+            "FeT": 60.0,
+            "SiO2": {
+              "teor": 6.042857142857143,
+              "alvo": 5.55,
+              "limites": [
+                5.0,
+                6.2
+              ],
+              "desvio": 0.4928571428571429,
+              "abs_desvio": 0.4928571428571429,
+              "desvio_quad": 0.24290816326530615,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 1.8214285714285714,
+              "alvo": 1.25,
+              "limites": [
+                1.0,
+                2.3
+              ],
+              "desvio": 0.5714285714285714,
+              "abs_desvio": 0.5714285714285714,
+              "desvio_quad": 0.32653061224489793,
+              "classificacao": "Afastado"
+            }
+          },
+          "P6": {
+            "grupo": "S2",
+            "FeT": 61.8,
+            "SiO2": {
+              "teor": 6.0,
+              "alvo": 5.5,
+              "limites": [
+                5.0,
+                6.5
+              ],
+              "desvio": 0.5,
+              "abs_desvio": 0.5,
+              "desvio_quad": 0.25,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 1.6533333333333333,
+              "alvo": 1.5,
+              "limites": [
+                1.0,
+                2.2
+              ],
+              "desvio": 0.15333333333333332,
+              "abs_desvio": 0.15333333333333332,
+              "desvio_quad": 0.023511111111111108,
+              "classificacao": "Bom"
+            }
+          },
+          "P7": {
+            "grupo": "S2",
+            "FeT": 59.25,
+            "SiO2": {
+              "teor": 6.05,
+              "alvo": 5.5,
+              "limites": [
+                5.0,
+                6.5
+              ],
+              "desvio": 0.5499999999999998,
+              "abs_desvio": 0.5499999999999998,
+              "desvio_quad": 0.3024999999999998,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 2.00625,
+              "alvo": 1.5,
+              "limites": [
+                1.0,
+                2.2
+              ],
+              "desvio": 0.5062500000000001,
+              "abs_desvio": 0.5062500000000001,
+              "desvio_quad": 0.2562890625000001,
+              "classificacao": "Afastado"
+            }
+          },
+          "P8": {
+            "grupo": "S2",
+            "FeT": 59.411764705882355,
+            "SiO2": {
+              "teor": 6.082352941176471,
+              "alvo": 5.5,
+              "limites": [
+                5.0,
+                6.5
+              ],
+              "desvio": 0.5823529411764712,
+              "abs_desvio": 0.5823529411764712,
+              "desvio_quad": 0.3391349480968865,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 2.123529411764706,
+              "alvo": 1.5,
+              "limites": [
+                1.0,
+                2.2
+              ],
+              "desvio": 0.6235294117647059,
+              "abs_desvio": 0.6235294117647059,
+              "desvio_quad": 0.38878892733564013,
+              "classificacao": "Afastado"
+            }
+          },
+          "P9": {
+            "grupo": "S2",
+            "FeT": 59.666666666666664,
+            "SiO2": {
+              "teor": 6.094444444444445,
+              "alvo": 5.5,
+              "limites": [
+                5.0,
+                6.5
+              ],
+              "desvio": 0.594444444444445,
+              "abs_desvio": 0.594444444444445,
+              "desvio_quad": 0.35336419753086484,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 2.072222222222222,
+              "alvo": 1.5,
+              "limites": [
+                1.0,
+                2.2
+              ],
+              "desvio": 0.572222222222222,
+              "abs_desvio": 0.572222222222222,
+              "desvio_quad": 0.327438271604938,
+              "classificacao": "Afastado"
+            }
+          },
+          "P10": {
+            "grupo": "S2",
+            "FeT": 58.8421052631579,
+            "SiO2": {
+              "teor": 6.152631578947369,
+              "alvo": 5.5,
+              "limites": [
+                5.0,
+                6.5
+              ],
+              "desvio": 0.6526315789473687,
+              "abs_desvio": 0.6526315789473687,
+              "desvio_quad": 0.4259279778393355,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 2.1578947368421053,
+              "alvo": 1.5,
+              "limites": [
+                1.0,
+                2.2
+              ],
+              "desvio": 0.6578947368421053,
+              "abs_desvio": 0.6578947368421053,
+              "desvio_quad": 0.432825484764543,
+              "classificacao": "Afastado"
+            }
+          }
+        },
+        "estatisticas": {
+          "SiO2": {
+            "soma_quadratica_f2": 2.507483686952995,
+            "desvio_abs_medio": 0.49080320281713474,
+            "desvio_abs_max": 0.6526315789473687,
+            "desvio_abs_min": 0.33999999999999986,
+            "desvio_padrao_entre_pilhas": 0.0993004773389434,
+            "contagem_classificacao": {
+              "Excelente": 0,
+              "Bom": 0,
+              "Afastado": 10,
+              "Inviável": 0
+            }
+          },
+          "Al2O3": {
+            "soma_quadratica_f3": 3.242396023285572,
+            "desvio_abs_medio": 0.5388201399134062,
+            "desvio_abs_max": 0.8863636363636362,
+            "desvio_abs_min": 0.15333333333333332,
+            "desvio_padrao_entre_pilhas": 0.18415335770019134,
+            "contagem_classificacao": {
+              "Excelente": 0,
+              "Bom": 1,
+              "Afastado": 9,
+              "Inviável": 0
+            }
+          }
+        },
+        "criterio_adotado": {
+          "excelente_limite_abs": 0.1,
+          "bom_limite_abs": 0.25,
+          "descricao": "Excelente <= 0.10%, Bom <= 0.25%, Afastado > 0.25%"
+        }
+      }
+    },
+    "f3": {
+      "seed": 20,
+      "valor_puro": 1.509071953424987,
+      "factivel": true,
+      "status_selecao": "Viável (Ótimo factível encontrado)",
+      "resumo": {
+        "f1": 65600000.0,
+        "f2": 4.851184700189098,
+        "f3": 1.509071953424987,
+        "viol_disp": 0.0,
+        "viol_qual": 0.0,
+        "penalidade": 0.0,
+        "factivel": true
+      },
+      "diagnostico": {
+        "factivel": true,
+        "total_viol_disp": 0.0,
+        "total_viol_qual": 0.0,
+        "minerios_violados": [],
+        "pilhas_violadas": []
+      },
+      "proximidade": {
+        "pilhas": {
+          "P1": {
+            "grupo": "S1",
+            "FeT": 61.6,
+            "SiO2": {
+              "teor": 5.92,
+              "alvo": 5.55,
+              "limites": [
+                5.0,
+                6.2
+              ],
+              "desvio": 0.3700000000000001,
+              "abs_desvio": 0.3700000000000001,
+              "desvio_quad": 0.13690000000000008,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 1.58,
+              "alvo": 1.25,
+              "limites": [
+                1.0,
+                2.3
+              ],
+              "desvio": 0.33000000000000007,
+              "abs_desvio": 0.33000000000000007,
+              "desvio_quad": 0.10890000000000005,
+              "classificacao": "Afastado"
+            }
+          },
+          "P2": {
+            "grupo": "S1",
+            "FeT": 62.0,
+            "SiO2": {
+              "teor": 6.0,
+              "alvo": 5.55,
+              "limites": [
+                5.0,
+                6.2
+              ],
+              "desvio": 0.4500000000000002,
+              "abs_desvio": 0.4500000000000002,
+              "desvio_quad": 0.20250000000000015,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 1.5454545454545454,
+              "alvo": 1.25,
+              "limites": [
+                1.0,
+                2.3
+              ],
+              "desvio": 0.2954545454545454,
+              "abs_desvio": 0.2954545454545454,
+              "desvio_quad": 0.08729338842975204,
+              "classificacao": "Afastado"
+            }
+          },
+          "P3": {
+            "grupo": "S1",
+            "FeT": 61.583333333333336,
+            "SiO2": {
+              "teor": 6.0249999999999995,
+              "alvo": 5.55,
+              "limites": [
+                5.0,
+                6.2
+              ],
+              "desvio": 0.47499999999999964,
+              "abs_desvio": 0.47499999999999964,
+              "desvio_quad": 0.22562499999999966,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 1.6416666666666666,
+              "alvo": 1.25,
+              "limites": [
+                1.0,
+                2.3
+              ],
+              "desvio": 0.3916666666666666,
+              "abs_desvio": 0.3916666666666666,
+              "desvio_quad": 0.15340277777777772,
+              "classificacao": "Afastado"
+            }
+          },
+          "P4": {
+            "grupo": "S1",
+            "FeT": 61.23076923076923,
+            "SiO2": {
+              "teor": 6.084615384615384,
+              "alvo": 5.55,
+              "limites": [
+                5.0,
+                6.2
+              ],
+              "desvio": 0.5346153846153845,
+              "abs_desvio": 0.5346153846153845,
+              "desvio_quad": 0.2858136094674555,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 1.6307692307692307,
+              "alvo": 1.25,
+              "limites": [
+                1.0,
+                2.3
+              ],
+              "desvio": 0.38076923076923075,
+              "abs_desvio": 0.38076923076923075,
+              "desvio_quad": 0.1449852071005917,
+              "classificacao": "Afastado"
+            }
+          },
+          "P5": {
+            "grupo": "S1",
+            "FeT": 59.642857142857146,
+            "SiO2": {
+              "teor": 6.185714285714285,
+              "alvo": 5.55,
+              "limites": [
+                5.0,
+                6.2
+              ],
+              "desvio": 0.6357142857142852,
+              "abs_desvio": 0.6357142857142852,
+              "desvio_quad": 0.40413265306122387,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 1.6714285714285713,
+              "alvo": 1.25,
+              "limites": [
+                1.0,
+                2.3
+              ],
+              "desvio": 0.42142857142857126,
+              "abs_desvio": 0.42142857142857126,
+              "desvio_quad": 0.17760204081632638,
+              "classificacao": "Afastado"
+            }
+          },
+          "P6": {
+            "grupo": "S2",
+            "FeT": 58.0,
+            "SiO2": {
+              "teor": 6.36,
+              "alvo": 5.5,
+              "limites": [
+                5.0,
+                6.5
+              ],
+              "desvio": 0.8600000000000003,
+              "abs_desvio": 0.8600000000000003,
+              "desvio_quad": 0.7396000000000006,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 1.9066666666666665,
+              "alvo": 1.5,
+              "limites": [
+                1.0,
+                2.2
+              ],
+              "desvio": 0.4066666666666665,
+              "abs_desvio": 0.4066666666666665,
+              "desvio_quad": 0.16537777777777765,
+              "classificacao": "Afastado"
+            }
+          },
+          "P7": {
+            "grupo": "S2",
+            "FeT": 60.125,
+            "SiO2": {
+              "teor": 6.25625,
+              "alvo": 5.5,
+              "limites": [
+                5.0,
+                6.5
+              ],
+              "desvio": 0.7562499999999996,
+              "abs_desvio": 0.7562499999999996,
+              "desvio_quad": 0.5719140624999994,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 1.85625,
+              "alvo": 1.5,
+              "limites": [
+                1.0,
+                2.2
+              ],
+              "desvio": 0.35624999999999996,
+              "abs_desvio": 0.35624999999999996,
+              "desvio_quad": 0.12691406249999998,
+              "classificacao": "Afastado"
+            }
+          },
+          "P8": {
+            "grupo": "S2",
+            "FeT": 58.88235294117647,
+            "SiO2": {
+              "teor": 6.31764705882353,
+              "alvo": 5.5,
+              "limites": [
+                5.0,
+                6.5
+              ],
+              "desvio": 0.8176470588235301,
+              "abs_desvio": 0.8176470588235301,
+              "desvio_quad": 0.6685467128027692,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 1.8823529411764706,
+              "alvo": 1.5,
+              "limites": [
+                1.0,
+                2.2
+              ],
+              "desvio": 0.38235294117647056,
+              "abs_desvio": 0.38235294117647056,
+              "desvio_quad": 0.14619377162629757,
+              "classificacao": "Afastado"
+            }
+          },
+          "P9": {
+            "grupo": "S2",
+            "FeT": 60.833333333333336,
+            "SiO2": {
+              "teor": 6.433333333333334,
+              "alvo": 5.5,
+              "limites": [
+                5.0,
+                6.5
+              ],
+              "desvio": 0.9333333333333336,
+              "abs_desvio": 0.9333333333333336,
+              "desvio_quad": 0.8711111111111115,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 1.911111111111111,
+              "alvo": 1.5,
+              "limites": [
+                1.0,
+                2.2
+              ],
+              "desvio": 0.411111111111111,
+              "abs_desvio": 0.411111111111111,
+              "desvio_quad": 0.16901234567901224,
+              "classificacao": "Afastado"
+            }
+          },
+          "P10": {
+            "grupo": "S2",
+            "FeT": 59.89473684210526,
+            "SiO2": {
+              "teor": 6.363157894736842,
+              "alvo": 5.5,
+              "limites": [
+                5.0,
+                6.5
+              ],
+              "desvio": 0.8631578947368421,
+              "abs_desvio": 0.8631578947368421,
+              "desvio_quad": 0.7450415512465375,
+              "classificacao": "Afastado"
+            },
+            "Al2O3": {
+              "teor": 1.9789473684210528,
+              "alvo": 1.5,
+              "limites": [
+                1.0,
+                2.2
+              ],
+              "desvio": 0.4789473684210528,
+              "abs_desvio": 0.4789473684210528,
+              "desvio_quad": 0.22939058171745166,
+              "classificacao": "Afastado"
+            }
+          }
+        },
+        "estatisticas": {
+          "SiO2": {
+            "soma_quadratica_f2": 4.851184700189098,
+            "desvio_abs_medio": 0.6695717957223375,
+            "desvio_abs_max": 0.9333333333333336,
+            "desvio_abs_min": 0.3700000000000001,
+            "desvio_padrao_entre_pilhas": 0.19181261791674195,
+            "contagem_classificacao": {
+              "Excelente": 0,
+              "Bom": 0,
+              "Afastado": 10,
+              "Inviável": 0
+            }
+          },
+          "Al2O3": {
+            "soma_quadratica_f3": 1.509071953424987,
+            "desvio_abs_medio": 0.3854647101694315,
+            "desvio_abs_max": 0.4789473684210528,
+            "desvio_abs_min": 0.2954545454545454,
+            "desvio_padrao_entre_pilhas": 0.048209465424280326,
+            "contagem_classificacao": {
+              "Excelente": 0,
+              "Bom": 0,
+              "Afastado": 10,
+              "Inviável": 0
+            }
+          }
+        },
+        "criterio_adotado": {
+          "excelente_limite_abs": 0.1,
+          "bom_limite_abs": 0.25,
+          "descricao": "Excelente <= 0.10%, Bom <= 0.25%, Afastado > 0.25%"
+        }
+      }
+    }
+  },
+  "execucoes": {
+    "f1": [
+      {
+        "seed": 10,
+        "valor_puro": 61380000.0,
+        "violacao_total": 4.440892098500626e-16,
+        "factivel": true,
+        "resumo": {
+          "f1": 61380000.0,
+          "f2": 6.552846437073932,
+          "f3": 4.917997296978413,
+          "viol_disp": 0.0,
+          "viol_qual": 4.440892098500626e-16,
+          "penalidade": 4.440892098500626e-09,
+          "factivel": true
+        },
+        "diagnostico": {
+          "factivel": true,
+          "total_viol_disp": 0.0,
+          "total_viol_qual": 0.0,
+          "minerios_violados": [],
+          "pilhas_violadas": []
+        }
+      },
+      {
+        "seed": 20,
+        "valor_puro": 61660000.0,
+        "violacao_total": 0.0,
+        "factivel": true,
+        "resumo": {
+          "f1": 61660000.0,
+          "f2": 5.7233436818915076,
+          "f3": 4.795816208475164,
+          "viol_disp": 0.0,
+          "viol_qual": 0.0,
+          "penalidade": 0.0,
+          "factivel": true
+        },
+        "diagnostico": {
+          "factivel": true,
+          "total_viol_disp": 0.0,
+          "total_viol_qual": 0.0,
+          "minerios_violados": [],
+          "pilhas_violadas": []
+        }
+      },
+      {
+        "seed": 30,
+        "valor_puro": 61140000.0,
+        "violacao_total": 0.0,
+        "factivel": true,
+        "resumo": {
+          "f1": 61140000.0,
+          "f2": 6.063233163110307,
+          "f3": 5.079933984920196,
+          "viol_disp": 0.0,
+          "viol_qual": 0.0,
+          "penalidade": 0.0,
+          "factivel": true
+        },
+        "diagnostico": {
+          "factivel": true,
+          "total_viol_disp": 0.0,
+          "total_viol_qual": 0.0,
+          "minerios_violados": [],
+          "pilhas_violadas": []
+        }
+      },
+      {
+        "seed": 40,
+        "valor_puro": 61280000.0,
+        "violacao_total": 0.0,
+        "factivel": true,
+        "resumo": {
+          "f1": 61280000.0,
+          "f2": 6.1628761692954654,
+          "f3": 4.9078462835094605,
+          "viol_disp": 0.0,
+          "viol_qual": 0.0,
+          "penalidade": 0.0,
+          "factivel": true
+        },
+        "diagnostico": {
+          "factivel": true,
+          "total_viol_disp": 0.0,
+          "total_viol_qual": 0.0,
+          "minerios_violados": [],
+          "pilhas_violadas": []
+        }
+      },
+      {
+        "seed": 50,
+        "valor_puro": 61460000.0,
+        "violacao_total": 0.0,
+        "factivel": true,
+        "resumo": {
+          "f1": 61460000.0,
+          "f2": 6.210200706717742,
+          "f3": 4.700762574876169,
+          "viol_disp": 0.0,
+          "viol_qual": 0.0,
+          "penalidade": 0.0,
+          "factivel": true
+        },
+        "diagnostico": {
+          "factivel": true,
+          "total_viol_disp": 0.0,
+          "total_viol_qual": 0.0,
+          "minerios_violados": [],
+          "pilhas_violadas": []
+        }
+      }
+    ],
+    "f2": [
+      {
+        "seed": 10,
+        "valor_puro": 2.5147474454694785,
+        "violacao_total": 0.0,
+        "factivel": true,
+        "resumo": {
+          "f1": 64040000.0,
+          "f2": 2.5147474454694785,
+          "f3": 3.07090732051777,
+          "viol_disp": 0.0,
+          "viol_qual": 0.0,
+          "penalidade": 0.0,
+          "factivel": true
+        },
+        "diagnostico": {
+          "factivel": true,
+          "total_viol_disp": 0.0,
+          "total_viol_qual": 0.0,
+          "minerios_violados": [],
+          "pilhas_violadas": []
+        }
+      },
+      {
+        "seed": 20,
+        "valor_puro": 2.680093783664489,
+        "violacao_total": 0.0,
+        "factivel": true,
+        "resumo": {
+          "f1": 64820000.0,
+          "f2": 2.680093783664489,
+          "f3": 2.2778666706642077,
+          "viol_disp": 0.0,
+          "viol_qual": 0.0,
+          "penalidade": 0.0,
+          "factivel": true
+        },
+        "diagnostico": {
+          "factivel": true,
+          "total_viol_disp": 0.0,
+          "total_viol_qual": 0.0,
+          "minerios_violados": [],
+          "pilhas_violadas": []
+        }
+      },
+      {
+        "seed": 30,
+        "valor_puro": 2.5123491255728747,
+        "violacao_total": 0.0,
+        "factivel": true,
+        "resumo": {
+          "f1": 64040000.0,
+          "f2": 2.5123491255728747,
+          "f3": 3.3122773020480363,
+          "viol_disp": 0.0,
+          "viol_qual": 0.0,
+          "penalidade": 0.0,
+          "factivel": true
+        },
+        "diagnostico": {
+          "factivel": true,
+          "total_viol_disp": 0.0,
+          "total_viol_qual": 0.0,
+          "minerios_violados": [],
+          "pilhas_violadas": []
+        }
+      },
+      {
+        "seed": 40,
+        "valor_puro": 2.507483686952995,
+        "violacao_total": 0.0,
+        "factivel": true,
+        "resumo": {
+          "f1": 64040000.0,
+          "f2": 2.507483686952995,
+          "f3": 3.242396023285572,
+          "viol_disp": 0.0,
+          "viol_qual": 0.0,
+          "penalidade": 0.0,
+          "factivel": true
+        },
+        "diagnostico": {
+          "factivel": true,
+          "total_viol_disp": 0.0,
+          "total_viol_qual": 0.0,
+          "minerios_violados": [],
+          "pilhas_violadas": []
+        }
+      },
+      {
+        "seed": 50,
+        "valor_puro": 2.5537029401741616,
+        "violacao_total": 0.0,
+        "factivel": true,
+        "resumo": {
+          "f1": 64160000.0,
+          "f2": 2.5537029401741616,
+          "f3": 2.9898819466672517,
+          "viol_disp": 0.0,
+          "viol_qual": 0.0,
+          "penalidade": 0.0,
+          "factivel": true
+        },
+        "diagnostico": {
+          "factivel": true,
+          "total_viol_disp": 0.0,
+          "total_viol_qual": 0.0,
+          "minerios_violados": [],
+          "pilhas_violadas": []
+        }
+      }
+    ],
+    "f3": [
+      {
+        "seed": 10,
+        "valor_puro": 1.5642645676672995,
+        "violacao_total": 0.0,
+        "factivel": true,
+        "resumo": {
+          "f1": 65660000.0,
+          "f2": 5.0199300712147785,
+          "f3": 1.5642645676672995,
+          "viol_disp": 0.0,
+          "viol_qual": 0.0,
+          "penalidade": 0.0,
+          "factivel": true
+        },
+        "diagnostico": {
+          "factivel": true,
+          "total_viol_disp": 0.0,
+          "total_viol_qual": 0.0,
+          "minerios_violados": [],
+          "pilhas_violadas": []
+        }
+      },
+      {
+        "seed": 20,
+        "valor_puro": 1.509071953424987,
+        "violacao_total": 0.0,
+        "factivel": true,
+        "resumo": {
+          "f1": 65600000.0,
+          "f2": 4.851184700189098,
+          "f3": 1.509071953424987,
+          "viol_disp": 0.0,
+          "viol_qual": 0.0,
+          "penalidade": 0.0,
+          "factivel": true
+        },
+        "diagnostico": {
+          "factivel": true,
+          "total_viol_disp": 0.0,
+          "total_viol_qual": 0.0,
+          "minerios_violados": [],
+          "pilhas_violadas": []
+        }
+      },
+      {
+        "seed": 30,
+        "valor_puro": 1.518207745823926,
+        "violacao_total": 0.0,
+        "factivel": true,
+        "resumo": {
+          "f1": 65640000.0,
+          "f2": 4.703693807828087,
+          "f3": 1.518207745823926,
+          "viol_disp": 0.0,
+          "viol_qual": 0.0,
+          "penalidade": 0.0,
+          "factivel": true
+        },
+        "diagnostico": {
+          "factivel": true,
+          "total_viol_disp": 0.0,
+          "total_viol_qual": 0.0,
+          "minerios_violados": [],
+          "pilhas_violadas": []
+        }
+      },
+      {
+        "seed": 40,
+        "valor_puro": 1.58784359257421,
+        "violacao_total": 0.0,
+        "factivel": true,
+        "resumo": {
+          "f1": 65580000.0,
+          "f2": 4.5105341791337725,
+          "f3": 1.58784359257421,
+          "viol_disp": 0.0,
+          "viol_qual": 0.0,
+          "penalidade": 0.0,
+          "factivel": true
+        },
+        "diagnostico": {
+          "factivel": true,
+          "total_viol_disp": 0.0,
+          "total_viol_qual": 0.0,
+          "minerios_violados": [],
+          "pilhas_violadas": []
+        }
+      },
+      {
+        "seed": 50,
+        "valor_puro": 1.5176835248405753,
+        "violacao_total": 0.0,
+        "factivel": true,
+        "resumo": {
+          "f1": 65660000.0,
+          "f2": 5.22149277582013,
+          "f3": 1.5176835248405753,
+          "viol_disp": 0.0,
+          "viol_qual": 0.0,
+          "penalidade": 0.0,
+          "factivel": true
+        },
+        "diagnostico": {
+          "factivel": true,
+          "total_viol_disp": 0.0,
+          "total_viol_qual": 0.0,
+          "minerios_violados": [],
+          "pilhas_violadas": []
+        }
+      }
+    ]
+  }
+}
