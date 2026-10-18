@@ -161,7 +161,12 @@ def fitness_deb(sol, objetivo):
     3. Entre inviáveis: menor violação agregada de restrições vence (caminho em direção à região viável).
     4. Elimina 100% a dependência de pesos arbitrários de penalidade (sem falsos ótimos!).
     """
-    f = OBJECTIVES[objetivo](sol)
+    if hasattr(objetivo, "fitness_deb"):
+        return objetivo.fitness_deb(sol)
+    if callable(objetivo):
+        f = objetivo(sol)
+    else:
+        f = OBJECTIVES[objetivo](sol)
     v = violacao_total(sol)
     if v <= 1e-9:
         return (0, float(f), 0.0)
@@ -173,6 +178,8 @@ def eh_melhor_deb(sol_a, sol_b, objetivo, tol=1e-9):
     """
     Retorna True se sol_a for estritamente superior a sol_b segundo as Regras de Deb (2000).
     """
+    if hasattr(objetivo, "eh_melhor_deb"):
+        return objetivo.eh_melhor_deb(sol_a, sol_b, tol=tol)
     fit_a = fitness_deb(sol_a, objetivo)
     fit_b = fitness_deb(sol_b, objetivo)
 
@@ -203,7 +210,12 @@ def avaliar(sol, objetivo):
     - Se inviável: OFFSET_INVIAVEL (1e9) + violacao_total(sol)
     Garante que qualquer solução factível tem avaliação menor que qualquer infactível.
     """
-    f = OBJECTIVES[objetivo](sol)
+    if hasattr(objetivo, "avaliar"):
+        return objetivo.avaliar(sol)
+    if callable(objetivo):
+        f = objetivo(sol)
+    else:
+        f = OBJECTIVES[objetivo](sol)
     v = violacao_total(sol)
     if v <= 1e-9:
         return f
