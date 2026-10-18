@@ -1,89 +1,302 @@
 # -*- coding: utf-8 -*-
 """
 neighborhoods.py
-Estruturas de vizinhança usadas pela metaheurística VNS/GVNS.
-
-N1 - Troca simples (single swap):
-    Escolhe uma pilha p e uma posição i do vetor de composição, e substitui
-    o minério dessa posição por outro minério elegível para o grupo de p
-    (diferente do atual, escolhido aleatoriamente).
-
-N2 - Troca entre pilhas (cross-pile exchange):
-    Escolhe duas pilhas p1 != p2 e uma posição em cada uma; se os dois
-    minérios envolvidos forem mutuamente compatíveis (o minério de p1 é
-    elegível para o grupo de p2 e vice-versa), troca os dois minérios de
-    posição. Note que quando p1 e p2 pertencem ao mesmo grupo a troca é
-    sempre compatível; quando pertencem a grupos diferentes, só é aceita se
-    ambos os minérios forem "duplamente elegíveis" (M1-M7, M13-M15).
-
-N3 - Substituição dupla direcionada (targeted double-replacement):
-    Vizinhança de perturbação mais "forte" (passo maior), com lógica
-    distinta de N1/N2: escolhe uma pilha p e DUAS posições i≠j dessa pilha
-    simultaneamente, substituindo os minérios de ambas por dois minérios
-    elegíveis sorteados aleatoriamente (iguais ou diferentes entre si e dos
-    originais). Ao alterar duas posições de uma só vez, N3 produz um
-    deslocamento maior no espaço de soluções do que N1/N2 (que alteram uma
-    única posição, ou trocam duas posições mantendo os mesmos minérios em
-    uso), sendo útil como nível de agitação (shaking) mais intenso dentro
-    do VNS/GVNS.
-
-Todos os operadores retornam uma NOVA solução (cópia), preservando a
-original, para permitir avaliação e critério de aceitação.
+Estruturas de vizinhança canônicas para o GVNS com o Princípio de Dominação de Deb:
+1. Operadores de Perturbação (Shaking) com intensidades progressivas k = 1, 2, 3:
+   - Shaking N1: Substituição Simples em 1 pilha (d_H = 1)
+   - Shaking N2: Troca Cruzada entre 2 pilhas distintas (d_H = 2, conservativa de estoque)
+   - Shaking N3: Substituição Tripla Distribuída em 3 pilhas distintas (d_H = 3, alcance sistêmico)
+2. Operadores de Descida de Busca Local (VND) guiados pelo Princípio de Deb:
+   - Descida N1 (Substituição Simples)
+   - Descida N2 (Troca Entre Pilhas)
+   - Descida N3 (Substituição Tripla Distribuída)
 """
 
 import copy
 import random
-from data import PILES, PILE_IDS, ELIGIBLE
+from data import PILES, PILE_IDS, ELIGIBLE, MINERALS
+from model import avaliar, resumo_solucao, eh_melhor_deb, violacao_total
 
 
-def _copy(sol):
+def copy_solution(sol):
+    """Retorna uma cópia profunda (deep copy) da estrutura de dados da solução."""
     return {p: list(comp) for p, comp in sol.items()}
 
 
-def n1_troca_simples(sol, rng: random.Random):
-    """N1: troca o minério de uma posição por outro elegível diferente."""
-    novo = _copy(sol)
+# ---------------------------------------------------------------------------
+# 1. Operadores de Perturbação (Shaking)
+# ---------------------------------------------------------------------------
+
+def shaking_n1(sol, rng: random.Random = None):
+    """
+    Shaking N1 (Perturbação Leve, Distância de Hamming = 1):
+    Sorteia 1 pilha p e 1 posição i, substituindo o minério atual
+    por outro minério elegível diferente sorteado aleatoriamente.
+    """
+    if rng is None:
+        rng = random.Random()
+    novo = copy_solution(sol)
     p = rng.choice(PILE_IDS)
     grp = PILES[p]["grupo"]
     i = rng.randrange(len(novo[p]))
     atual = novo[p][i]
     opcoes = [m for m in ELIGIBLE[grp] if m != atual]
-    if not opcoes:
-        return novo  # não deveria ocorrer (há >=15 minérios elegíveis por grupo)
-    novo[p][i] = rng.choice(opcoes)
+    if opcoes:
+        novo[p][i] = rng.choice(opcoes)
     return novo
 
 
-def n2_troca_entre_pilhas(sol, rng: random.Random, max_tentativas=20):
-    """N2: troca minérios entre posições de duas pilhas distintas, se compatível."""
-    novo = _copy(sol)
+def shaking_n2(sol, rng: random.Random = None, max_tentativas=50):
+    """
+    Shaking N2 (Perturbação Moderada, Distância de Hamming = 2):
+    Sorteia 2 pilhas distintas p1 != p2 e troca minérios de posições i1, i2
+    se forem mutuamente compatíveis (preserva o estoque global de minérios).
+    """
+    if rng is None:
+        rng = random.Random()
+    novo = copy_solution(sol)
     for _ in range(max_tentativas):
         p1, p2 = rng.sample(PILE_IDS, 2)
         i1 = rng.randrange(len(novo[p1]))
         i2 = rng.randrange(len(novo[p2]))
         m1, m2 = novo[p1][i1], novo[p2][i2]
         grp1, grp2 = PILES[p1]["grupo"], PILES[p2]["grupo"]
-        compat = (m1 in ELIGIBLE[grp2]) and (m2 in ELIGIBLE[grp1])
-        if compat and m1 != m2:
+        if (m1 in ELIGIBLE[grp2]) and (m2 in ELIGIBLE[grp1]) and (m1 != m2):
             novo[p1][i1], novo[p2][i2] = m2, m1
             return novo
-    return novo  # se não achou par compatível em max_tentativas, devolve inalterado
+    # Se não encontrar par compatível após max_tentativas, aplica N1 como fallback
+    return shaking_n1(sol, rng)
 
 
-def n3_substituicao_dupla(sol, rng: random.Random):
-    """N3: substitui os minérios de DUAS posições de uma mesma pilha por
-    novos minérios sorteados aleatoriamente (passo de perturbação maior)."""
-    novo = _copy(sol)
-    p = rng.choice(PILE_IDS)
-    grp = PILES[p]["grupo"]
-    n = len(novo[p])
-    if n < 2:
-        return n1_troca_simples(sol, rng)
-    i, j = rng.sample(range(n), 2)
-    novo[p][i] = rng.choice(ELIGIBLE[grp])
-    novo[p][j] = rng.choice(ELIGIBLE[grp])
+def shaking_n3(sol, rng: random.Random = None):
+    """
+    Shaking N3 (Perturbação Forte e Distribuída, Distância de Hamming = 3):
+    Sorteia 3 pilhas distintas p1, p2, p3 e, em cada uma delas, substitui 1 caminhão
+    por outro minério elegível diferente do atual.
+    Afeta 30% das pilhas do sistema de forma balanceada, com 100% de elegibilidade por construção.
+    """
+    if rng is None:
+        rng = random.Random()
+    novo = copy_solution(sol)
+    pilhas_sorteadas = rng.sample(PILE_IDS, 3)
+    for p in pilhas_sorteadas:
+        grp = PILES[p]["grupo"]
+        i = rng.randrange(len(novo[p]))
+        atual = novo[p][i]
+        opcoes = [m for m in ELIGIBLE[grp] if m != atual]
+        if opcoes:
+            novo[p][i] = rng.choice(opcoes)
     return novo
 
 
-NEIGHBORHOODS = [n1_troca_simples, n2_troca_entre_pilhas, n3_substituicao_dupla]
-NEIGHBORHOOD_NAMES = ["N1 (troca simples)", "N2 (troca entre pilhas)", "N3 (substituicao dupla)"]
+def shaking_k(sol, k: int, rng: random.Random = None):
+    """
+    Aplica perturbação de intensidade k (1-indexado):
+    k = 1: N1 (Substituição Simples - 1 pilha)
+    k = 2: N2 (Troca Entre 2 Pilhas - 2 pilhas)
+    k = 3: N3 (Substituição Tripla Distribuída - 3 pilhas)
+    k > 3: k passos acumulados de perturbação
+    """
+    if rng is None:
+        rng = random.Random()
+    if k == 1:
+        return shaking_n1(sol, rng)
+    elif k == 2:
+        return shaking_n2(sol, rng)
+    elif k == 3:
+        return shaking_n3(sol, rng)
+    else:
+        atual = sol
+        for _ in range(k):
+            atual = shaking_n1(atual, rng)
+        return atual
+
+
+# ---------------------------------------------------------------------------
+# 2. Operadores de Busca Local (Descida First-Improvement com Regras de Deb)
+# ---------------------------------------------------------------------------
+
+def descida_n1(sol, objetivo, rng: random.Random = None, max_evals=100, max_sem_melhora=30):
+    """
+    Busca local em N1 (Substituição Simples em 1 Pilha):
+    Sorteia posições e testa minérios elegíveis substitutos via First-Improvement estocástico.
+    Critério de Aceitação: Princípio de Dominação de Restrições de Deb (eh_melhor_deb).
+
+    Retorna: (solucao_final, valor_final, avaliacoes_realizadas, houve_melhora, historico_transicoes)
+    """
+    if rng is None:
+        rng = random.Random()
+    atual = copy_solution(sol)
+    val_atual = avaliar(atual, objetivo)
+    avals = 0
+    melhorou_global = False
+    transicoes = []
+    sem_melhora = 0
+    limite = min(max_sem_melhora, max_evals)
+
+    while sem_melhora < limite and avals < max_evals:
+        p = rng.choice(PILE_IDS)
+        grp = PILES[p]["grupo"]
+        i = rng.randrange(len(atual[p]))
+        m_antigo = atual[p][i]
+
+        opcoes = [m for m in ELIGIBLE[grp] if m != m_antigo]
+        if not opcoes:
+            sem_melhora += 1
+            continue
+
+        m_candidato = rng.choice(opcoes)
+        candidato = copy_solution(atual)
+        candidato[p][i] = m_candidato
+        avals += 1
+
+        if eh_melhor_deb(candidato, atual, objetivo):
+            v = avaliar(candidato, objetivo)
+            delta = v - val_atual
+            transicoes.append({
+                "tipo": "N1 (Substituição Simples)",
+                "pilha": p,
+                "posicao": i,
+                "de": m_antigo,
+                "para": m_candidato,
+                "val_antes": val_atual,
+                "val_depois": v,
+                "delta": delta,
+            })
+            atual = candidato
+            val_atual = v
+            melhorou_global = True
+            sem_melhora = 0
+        else:
+            sem_melhora += 1
+
+    return atual, val_atual, avals, melhorou_global, transicoes
+
+
+def descida_n2(sol, objetivo, rng: random.Random = None, max_evals=100, max_sem_melhora=25):
+    """
+    Busca local em N2 (Troca Entre 2 Pilhas Distintas):
+    Explora trocas compatíveis entre pilhas distintas p1 != p2.
+    Invariante: 100% conservativo de disponibilidade global.
+    Critério de Aceitação: Princípio de Dominação de Restrições de Deb (eh_melhor_deb).
+
+    Retorna: (solucao_final, valor_final, avaliacoes_realizadas, houve_melhora, historico_transicoes)
+    """
+    if rng is None:
+        rng = random.Random()
+    atual = copy_solution(sol)
+    val_atual = avaliar(atual, objetivo)
+    avals = 0
+    melhorou_global = False
+    transicoes = []
+    sem_melhora = 0
+    limite = min(max_sem_melhora, max_evals)
+
+    while sem_melhora < limite and avals < max_evals:
+        p1, p2 = rng.sample(PILE_IDS, 2)
+        i1 = rng.randrange(len(atual[p1]))
+        i2 = rng.randrange(len(atual[p2]))
+        m1, m2 = atual[p1][i1], atual[p2][i2]
+        grp1, grp2 = PILES[p1]["grupo"], PILES[p2]["grupo"]
+
+        if (m1 in ELIGIBLE[grp2]) and (m2 in ELIGIBLE[grp1]) and (m1 != m2):
+            candidato = copy_solution(atual)
+            candidato[p1][i1], candidato[p2][i2] = m2, m1
+            avals += 1
+
+            if eh_melhor_deb(candidato, atual, objetivo):
+                v = avaliar(candidato, objetivo)
+                delta = v - val_atual
+                transicoes.append({
+                    "tipo": "N2 (Troca Entre Pilhas)",
+                    "p1": p1, "i1": i1, "m1": m1,
+                    "p2": p2, "i2": i2, "m2": m2,
+                    "val_antes": val_atual,
+                    "val_depois": v,
+                    "delta": delta,
+                })
+                atual = candidato
+                val_atual = v
+                melhorou_global = True
+                sem_melhora = 0
+            else:
+                sem_melhora += 1
+        else:
+            sem_melhora += 1
+
+    return atual, val_atual, avals, melhorou_global, transicoes
+
+
+def descida_n3(sol, objetivo, rng: random.Random = None, max_evals=80, max_sem_melhora=20):
+    """
+    Busca local em N3 (Substituição Tripla Distribuída em 3 Pilhas Distintas):
+    Sorteia trincas de pilhas distintas p1, p2, p3 e tenta substituir simultaneamente
+    1 caminhão em cada uma delas por novos minérios elegíveis.
+    Critério de Aceitação: Princípio de Dominação de Restrições de Deb (eh_melhor_deb).
+
+    Retorna: (solucao_final, valor_final, avaliacoes_realizadas, houve_melhora, historico_transicoes)
+    """
+    if rng is None:
+        rng = random.Random()
+    atual = copy_solution(sol)
+    val_atual = avaliar(atual, objetivo)
+    avals = 0
+    melhorou_global = False
+    transicoes = []
+    sem_melhora = 0
+    limite = min(max_sem_melhora, max_evals)
+
+    while sem_melhora < limite and avals < max_evals:
+        pilhas = rng.sample(PILE_IDS, 3)
+        candidato = copy_solution(atual)
+        mudancas = []
+
+        for p in pilhas:
+            grp = PILES[p]["grupo"]
+            i = rng.randrange(len(candidato[p]))
+            m_ant = candidato[p][i]
+            opcoes = [m for m in ELIGIBLE[grp] if m != m_ant]
+            if opcoes:
+                m_novo = rng.choice(opcoes)
+                candidato[p][i] = m_novo
+                mudancas.append((p, i, m_ant, m_novo))
+
+        if len(mudancas) == 3:
+            avals += 1
+            if eh_melhor_deb(candidato, atual, objetivo):
+                v = avaliar(candidato, objetivo)
+                delta = v - val_atual
+                transicoes.append({
+                    "tipo": "N3 (Tripla Distribuída)",
+                    "pilhas": [m[0] for m in mudancas],
+                    "mudancas": mudancas,
+                    "val_antes": val_atual,
+                    "val_depois": v,
+                    "delta": delta,
+                })
+                atual = candidato
+                val_atual = v
+                melhorou_global = True
+                sem_melhora = 0
+            else:
+                sem_melhora += 1
+        else:
+            sem_melhora += 1
+
+    return atual, val_atual, avals, melhorou_global, transicoes
+
+
+# Aliases e compatibilidade
+_copy = copy_solution
+n1_troca_simples = shaking_n1
+n2_troca_entre_pilhas = shaking_n2
+n3_substituicao_dupla = shaking_n3
+
+SHAKING_OPERATORS = [shaking_n1, shaking_n2, shaking_n3]
+LOCAL_SEARCH_OPERATORS = [descida_n1, descida_n2, descida_n3]
+NEIGHBORHOOD_NAMES = [
+    "N1 (Substituição simples)",
+    "N2 (Troca entre 2 pilhas)",
+    "N3 (Substituição tripla distribuída)",
+]
+NEIGHBORHOODS = SHAKING_OPERATORS
